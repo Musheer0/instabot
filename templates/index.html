@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Stream Finder</title>
+</head>
+<body>
+    <h1>Enter YouTube Video URL</h1>
+    <form method="POST">
+        <input type="text" name="url" placeholder="Enter URL" required>
+        <button type="submit">Get Streams</button>
+    </form>
+
+    {% if error %}
+    <p style="color:red;">Error: {{ error }}</p>
+    {% endif %}
+
+    {% if title %}
+    <h2>Video: {{ title }}</h2>
+    <img src="{{ thumbnail }}" alt="Thumbnail">
+    <h3>Video Streams:</h3>
+    <ul>
+        {% for stream in video_streams %}
+        <li>
+            <strong>{{ stream.resolution }}</strong><br>
+            <a href="{{ stream.url }}" target="_blank">Download</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Audio Streams:</h3>
+    <ul>
+        {% for stream in audio_streams %}
+        <li>
+            <a href="{{ stream.url }}" target="_blank">Download Audio</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
